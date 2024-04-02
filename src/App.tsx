@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// App.tsx
+import React, { useState } from 'react';
+import Signup from './components/Signup';
+import Login from './components/Login';
+import FileAttachment from './components/FileAttachment';
 
 function App() {
+  const [signedUp, setSignedUp] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const handleSignup = () => {
+    setSignedUp(true);
+  };
+
+  const handleLogin = () => {
+    setLoggedIn(true);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {!signedUp ? (
+        <Signup onSignup={handleSignup} />
+      ) : (
+        <div>
+          {!loggedIn ? (
+            <Login onLogin={handleLogin} />
+          ) : (
+            <FileAttachment />
+          )}
+        </div>
+      )}
     </div>
   );
 }
